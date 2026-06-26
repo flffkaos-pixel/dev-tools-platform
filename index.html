@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevTools Platform - 개발자 도구 모음</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        header { text-align: center; padding: 3rem 0; }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { color: #94a3b8; font-size: 1.1rem; }
+        .search-box { max-width: 600px; margin: 2rem auto; }
+        .search-box input { width: 100%; padding: 1rem 1.5rem; font-size: 1.1rem; border: 2px solid #334155; border-radius: 12px; background: #1e293b; color: #f1f5f9; outline: none; transition: border-color 0.2s; }
+        .search-box input:focus { border-color: #60a5fa; }
+        .categories { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin: 1.5rem 0; }
+        .category-btn { padding: 0.5rem 1rem; border: 1px solid #334155; border-radius: 20px; background: transparent; color: #94a3b8; cursor: pointer; transition: all 0.2s; font-size: 0.9rem; }
+        .category-btn:hover, .category-btn.active { background: #3b82f6; color: white; border-color: #3b82f6; }
+        .results { display: grid; gap: 1rem; margin-top: 2rem; }
+        .service-card { background: #1e293b; border-radius: 12px; padding: 1.5rem; border: 1px solid #334155; transition: transform 0.2s, border-color 0.2s; }
+        .service-card:hover { transform: translateY(-2px); border-color: #3b82f6; }
+        .service-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem; }
+        .service-name { font-size: 1.2rem; font-weight: 600; color: #f1f5f9; }
+        .service-name a { color: inherit; text-decoration: none; }
+        .service-name a:hover { color: #60a5fa; }
+        .service-category { font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 12px; background: #334155; color: #94a3b8; }
+        .service-description { color: #94a3b8; font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.75rem; }
+        .service-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag { font-size: 0.8rem; padding: 0.25rem 0.5rem; border-radius: 6px; background: #0f172a; color: #60a5fa; }
+        .bookmark-btn { background: none; border: none; color: #64748b; cursor: pointer; font-size: 1.2rem; padding: 0.25rem; }
+        .bookmark-btn:hover, .bookmark-btn.active { color: #fbbf24; }
+        .stats { text-align: center; color: #64748b; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #1e293b; }
+        .no-results { text-align: center; color: #64748b; padding: 3rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DevTools Platform</h1>
+            <p class="subtitle">무료 개발자 도구를 한눈에 찾아보세요</p>
+        </header>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="검색어를 입력하세요 (예: CI/CD, AI, DB...)">
+        </div>
+        
+        <div class="categories">
+            <button class="category-btn active" data-category="all">전체</button>
+            <button class="category-btn" data-category="AI/ML">AI/ML</button>
+            <button class="category-btn" data-category="CI/CD">CI/CD</button>
+            <button class="category-btn" data-category="Database">Database</button>
+            <button class="category-btn" data-category="Storage">Storage</button>
+            <button class="category-btn" data-category="API">API</button>
+            <button class="category-btn" data-category="Monitoring">Monitoring</button>
+            <button class="category-btn" data-category="Security">Security</button>
+        </div>
+        
+        <div id="results" class="results"></div>
+        
+        <div class="stats">
+            <span id="resultCount"></span>개 서비스
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+    <script src="search.js"></script>
+</body>
+</html>
